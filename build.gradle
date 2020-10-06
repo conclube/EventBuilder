@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group 'me.conclure'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT'
+    testCompileOnly 'org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT'
+}
