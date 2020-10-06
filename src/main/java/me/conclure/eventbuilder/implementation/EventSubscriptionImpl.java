@@ -6,6 +6,7 @@ import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -87,7 +88,7 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
 
     @Override
     public void execute(Listener listener,
-                        Event event) {
+                        Event event) throws EventException {
         if (eventType != event.getClass()) {
             return;
         }
@@ -114,6 +115,8 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
                     unregister();
                 }
             }
+        } catch (ClassCastException exc) {
+            throw new EventException(exc);
         } catch (Exception exc) {
             for (Consumer<Exception> exceptionConsumer : exceptionArray) {
                 exceptionConsumer.accept(exc);
