@@ -36,9 +36,30 @@ You can then register the event handler by calling `EventHandler<T extends Event
 Once you have gotten the subscription you won't be able to modify anything. The plugin instance should be your own.
 
 ```java
-EventSubscription<PlayerJoinEvent> eventSubscription = eventHandler.register(myPluginInstance);`
+EventSubscription<PlayerJoinEvent> eventSubscription = eventHandler.register(myPluginInstance);
 ```
 
+If you prefer, you may also chain all the methods as a builder pattern.
+
+```java
+EventSubscription<PlayerJoinEvent> eventSubscription = EventBuilders.create(PlayerJoinEvent.class)
+  .execute(event -> event.setJoinMessage("Someone joined."))
+  .build()
+  .ignoreCancelled(true)
+  .eventPriority(EventPriority.MONITOR)
+  .register(myPluginInstance);
+```
+
+It's recommended to unregister the subscription in your main `JavaPlugin#onDisable()`
+
+```java
+
+@Override
+public void onDisable() {
+  eventSubscription.unregister();
+}
+
+```
 
 ## Contributions
 This project is open for any pull requests that has reasonable changes. 
