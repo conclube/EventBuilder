@@ -1,6 +1,6 @@
 package me.conclure.eventbuilder;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import me.conclure.eventbuilder.implementation.EventBuilderFactory;
 import me.conclure.eventbuilder.interfaces.EventBuilder;
 import org.bukkit.event.Event;

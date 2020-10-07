@@ -1,9 +1,9 @@
 package me.conclure.eventbuilder.interfaces;
 
-import com.sun.istack.internal.NotNull;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Conclure
