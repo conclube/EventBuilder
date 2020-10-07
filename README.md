@@ -103,7 +103,7 @@ eventBuilder.filter(event -> event.getPlayer().hasPlayerBefore())
 eventBuilder.filter(event -> event.getPlayer().hasPlayedBefore())
 
   //Will only run if the event is async and if the player has played before
-  .executeIf(event -> event.isAsynchronous(), event.setJoinMessage("Nobody joined."));
+  .executeIf(event -> event.isAsynchronous(), event.setJoinMessage("Nobody joined."))
 
   //Will only run if the player has played before
   .execute(event -> event.setJoinMessage("An OG player joined."));
