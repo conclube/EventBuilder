@@ -73,7 +73,15 @@ This will cause all actions declared under the filter to not execute if the filt
 EventBuilder<PlayerJoinEvent> eventBuilder = EventBuilders.create(PlayerJoinEvent.class)
   .filter(event -> !event.isAsynchronous())
   .execute(event -> event.setJoinMessage("Someone joined.")); //Will only run if the event isn't async
-``` 
+```
+
+There is also `EventBuilder<T extend Event>#unregisterIf(Predicate<T>)` which instead of filtering will unregister the event subscription if the predicate is true.
+
+```java
+eventBuilder.unregisterIf(Event::isAsynchronous);
+```
+
+**NOTE**: Any actions declared underneath it will still run.
 
 ## Contributions
 This project is open for any pull requests that has reasonable changes. 
