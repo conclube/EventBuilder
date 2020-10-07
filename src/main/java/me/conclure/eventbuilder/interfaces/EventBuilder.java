@@ -1,8 +1,8 @@
 package me.conclure.eventbuilder.interfaces;
 
-import org.jetbrains.annotations.NotNull;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -29,10 +29,25 @@ public interface EventBuilder<T extends Event> {
     EventBuilder<T> filter(@NotNull Predicate<T> predicate);
 
     /**
+     * Applies a filter to the builder.
+     * <br>
+     * When the {@link Predicate#test(Object)} returns {@code true}
+     * any code under it will be executed, whereas if would return
+     * {@code false} would stop any further code execution and the
+     * code in
+     *
+     * @param predicate    filter
+     * @param elseConsumer
+     * @return same instance
+     */
+    @NotNull
+    EventBuilder<T> filter(@NotNull Predicate<T> predicate,
+                           @NotNull Consumer<T> elseConsumer);
+
+    /**
      * Adds an action to the builder.
      *
      * @param consumer action
-     *
      * @return same instance
      */
     @NotNull
@@ -72,6 +87,11 @@ public interface EventBuilder<T extends Event> {
     EventBuilder<T> executeIf(@NotNull Predicate<T> predicate,
                               @NotNull Consumer<T> consumer);
 
+    @NotNull
+    EventBuilder<T> executeIfElse(@NotNull Predicate<T> predicate,
+                                  @NotNull Consumer<T> ifConsumer,
+                                  @NotNull Consumer<T> elseConsumer);
+
     /**
      * Adds an action for any exception to the builder.
      * <br>
@@ -79,7 +99,6 @@ public interface EventBuilder<T extends Event> {
      * any filter if an {@link Exception} is caught.
      *
      * @param consumer error action
-     *
      * @return same instance
      */
     @NotNull

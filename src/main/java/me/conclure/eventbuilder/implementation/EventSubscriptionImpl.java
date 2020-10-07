@@ -78,7 +78,7 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
 
     @Override
     public boolean unregister() {
-        if (!isRegistered.get()) {
+        if (!isRegistered.getAndSet(false)) {
             return false;
         }
         HANDLER_LIST_CACHE.apply(eventType,this).unregister(this);
@@ -87,7 +87,7 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
 
     @Override
     public boolean register() {
-        if (isRegistered.get()) {
+        if (isRegistered.getAndSet(true)) {
             return false;
         }
         register0();
