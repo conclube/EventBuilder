@@ -2,7 +2,12 @@
 Functional event listener builder for bukkit events.
 
 ## Setup
-Soon
+To use this, you will have to shade it into your jar.
+
+```
+http://repo.bristermitten.me/
+me.conclure:event-builder:1.0.0
+```
 
 ## Usage
 
