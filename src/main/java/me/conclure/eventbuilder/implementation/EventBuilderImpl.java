@@ -21,17 +21,10 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
     final List<Consumer<Exception>> exceptionList;
     final Class<T> eventType;
 
-    EventPriority eventPriority;
-    boolean ignoreCancelled;
-
-    EventBuilderImpl(Class<T> eventType,
-                     EventPriority eventPriority,
-                     boolean ignoreCancelled) {
+    EventBuilderImpl(Class<T> eventType) {
         actionList = new ArrayList<>();
         exceptionList = new ArrayList<>();
         this.eventType = eventType;
-        this.eventPriority = eventPriority;
-        this.ignoreCancelled = ignoreCancelled;
     }
 
     @Override
@@ -82,23 +75,10 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
     }
 
     @Override
-    public EventBuilder<T> ignoreCancelled(boolean ignoreCancelled) {
-        this.ignoreCancelled = ignoreCancelled;
-        return this;
-    }
-
-    @Override
-    public EventBuilder<T> eventPriority(EventPriority eventPriority) {
-        Objects.requireNonNull(eventPriority, "eventPriority");
-        this.eventPriority = eventPriority;
-        return this;
-    }
-
-    @Override
     public EventBuilder<T> restore() {
         actionList.clear();
         exceptionList.clear();
-        return new EventBuilderImpl<>(eventType,eventPriority,ignoreCancelled);
+        return new EventBuilderImpl<>(eventType);
     }
 
     @Override

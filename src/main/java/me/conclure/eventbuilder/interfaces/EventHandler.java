@@ -11,8 +11,4 @@ public interface EventHandler<T extends Event> {
     EventHandler<T> ignoreCancelled(boolean ignoreCancelled);
 
     EventHandler<T> eventPriority(EventPriority eventPriority);
-
-    boolean isValid();
-
-    boolean invalidate();
 }

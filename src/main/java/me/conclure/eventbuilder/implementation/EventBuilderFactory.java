@@ -12,15 +12,7 @@ public final class EventBuilderFactory {
 
     public <T extends Event> EventBuilder<T> create(Class<T> eventType) {
         Objects.requireNonNull(eventType, "eventType");
-        return new EventBuilderImpl<>(eventType,EventPriority.NORMAL,false);
-    }
-
-    public <T extends Event> EventBuilder<T> create(Class<T> eventType,
-                                                    EventPriority eventPriority,
-                                                    boolean ignoreCancelled) {
-        Objects.requireNonNull(eventType, "eventType");
-        Objects.requireNonNull(eventPriority, "eventPriority");
-        return new EventBuilderImpl<>(eventType, eventPriority, ignoreCancelled);
+        return new EventBuilderImpl<>(eventType);
     }
 
 }

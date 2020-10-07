@@ -24,10 +24,6 @@ public interface EventBuilder<T extends Event> {
 
     EventBuilder<T> unregisterIf(Predicate<T> predicate);
 
-    EventBuilder<T> ignoreCancelled(boolean ignoreCancelled);
-
-    EventBuilder<T> eventPriority(EventPriority eventPriority);
-
     EventBuilder<T> restore();
 
     EventHandler<T> build();

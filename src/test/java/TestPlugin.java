@@ -12,7 +12,6 @@ public class TestPlugin extends JavaPlugin {
     public void onEnable() {
 
         eventSubscription = EventBuilders.create(PlayerJoinEvent.class)
-                .eventPriority(EventPriority.MONITOR)
                 .execute(event -> event.setJoinMessage("lol"))
                 .unregisterIf(event -> !event.getPlayer().hasPlayedBefore())
                 .filter(event -> event.getPlayer().isSneaking())
@@ -22,12 +21,15 @@ public class TestPlugin extends JavaPlugin {
                 .onError(Exception::printStackTrace)
                 .build()
                 .ignoreCancelled(true)
+                .eventPriority(EventPriority.MONITOR)
                 .register(this);
 
     }
 
     @Override
     public void onDisable() {
-        eventSubscription.unregister();
+        if (!eventSubscription.unregister()) {
+            throw new RuntimeException("Couldn't unregister event listener");
+        }
     }
 }
