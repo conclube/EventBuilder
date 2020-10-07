@@ -15,7 +15,9 @@ EventBuilder<PlayerJoinEvent> eventBuilder = EventBuilders.create(PlayerJoinEven
 ```
 
 **NOTE**: You may not use event classes which doesn't have the static method `#getHandlerList()`.
+
 <br>
+
 To assign an action to the builder, simply call `EventBuilder<T extends Event>#execute(Consumer<T>)`.
 
 ```java
@@ -52,7 +54,9 @@ EventSubscription<PlayerJoinEvent> eventSubscription = EventBuilders.create(Play
 
 **NOTE**: You can skip calling `#build()` and instead call `#register(Plugin)` directly, 
 that will set ignoreCancelled to false and eventPriority to NORMAL.
+
 <br>
+
 It's recommended to unregister the subscription when your plugin is disabling `JavaPlugin#onDisable()`.
 
 ```java
@@ -82,7 +86,9 @@ eventBuilder.unregisterIf(Event::isAsynchronous);
 ```
 
 **NOTE**: Any actions declared underneath it will still run that time.
+
 <br>
+
 You can also utilize a `EventBuilder<T extend Event>#executeIf(Predicate<T>,Consumer<T>)`.
 The consumer will only run if the predicate is true. The predicate won't apply to any other actions else than the consumer declared after it 
 albeit filters above it will still apply.
