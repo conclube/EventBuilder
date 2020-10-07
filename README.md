@@ -65,8 +65,15 @@ public void onDisable() {
 ```
 
 ### Advanced
+Now let's look into more functionalites you can utilize.
+Firstly you can use a `Predicate<T extends Event>` as a filter.
+This will cause all actions declared under the filter to not execute if the filter doesn't return true.
 
-
+```java
+EventBuilder<PlayerJoinEvent> eventBuilder = EventBuilders.create(PlayerJoinEvent.class)
+  .filter(event -> !event.isAsynchronous())
+  .execute(event -> event.setJoinMessage("Someone joined.")); //Will only run if the event isn't async
+``` 
 
 ## Contributions
 This project is open for any pull requests that has reasonable changes. 
