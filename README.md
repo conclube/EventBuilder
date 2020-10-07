@@ -88,7 +88,8 @@ The consumer will only run if the predicate is true. The predicate won't apply t
 albeit filters above it will still apply.
 
 ```java
-eventBuilder.executeIf(event -> event.isAsynchronous(), event.setJoinMessage("Nobody joined.")); //Will only run if the event is async
+//Will only run if the event is async
+eventBuilder.executeIf(event -> event.isAsynchronous(), event.setJoinMessage("Nobody joined."));
 ```
 
 ```java
