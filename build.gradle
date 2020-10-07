@@ -3,18 +3,19 @@ plugins {
     id 'maven-publish'
 }
 
-group 'me.conclure.eventbuilder'
+group 'me.conclure'
 version '1.0.0'
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {url 'http://repo.bristermitten.me/repository/maven-releases/'}
 }
 
 dependencies {
-    compileOnly 'org.jetbrains:annotations:19.0.0'
+    implementation 'org.jetbrains:annotations:19.0.0'
     compileOnly 'org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT'
     testCompileOnly 'org.spigotmc:spigot:1.16.1-R0.1-SNAPSHOT'
 }

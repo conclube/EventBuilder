@@ -127,7 +127,7 @@ public interface EventBuilder<T extends Event> {
      * Registers and {@link EventSubscription} based of the builder.
      * <br>
      * This is mainly a shortcut for {@link EventBuilder#build()} and
-     * then {@link EventHandler#register(Plugin).}
+     * then {@link EventHandler#register(Plugin)}
      * <br>
      * Note when invoking this method, it will implicitly create an
      * {@link EventHandler} based of the builder with

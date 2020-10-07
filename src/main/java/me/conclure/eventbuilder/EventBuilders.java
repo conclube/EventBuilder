@@ -18,7 +18,7 @@ public final class EventBuilders {
     }
 
     /**
-     * Creates a new {@link EventBuilder} from the {@param eventType}.
+     * Creates a new {@link EventBuilder} based of event type.
      *
      * @param eventType event class
      * @param <T> event type
