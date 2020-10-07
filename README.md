@@ -23,7 +23,7 @@ eventBuilder.execute(event -> event.setJoinMessage("Someone joined."));
 ```
 
 Then we can get the an `EventHandler<T extends Event>` by calling `EventBuilder<T extends Event>#build()` that won't allow any modifications to it's actions.
-You may also set the event priority by `EventHandler<T extends Event>#eventPriority(EventPriority)` 
+You may now set the event priority by `EventHandler<T extends Event>#eventPriority(EventPriority)` 
 and if handler should ignore cancelled by `EventHandler<T extends Event>#ignoreCancelled(boolean)`.
 
 ```java
