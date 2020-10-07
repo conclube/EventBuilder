@@ -6,7 +6,6 @@ import me.conclure.eventbuilder.interfaces.EventSubscription;
 import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.event.Event;
-import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;

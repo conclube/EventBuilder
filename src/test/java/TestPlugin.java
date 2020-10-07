@@ -28,8 +28,6 @@ public class TestPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (!eventSubscription.unregister()) {
-            throw new RuntimeException("Couldn't unregister event listener");
-        }
+        eventSubscription.unregister();
     }
 }

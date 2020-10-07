@@ -1,21 +1,9 @@
 package me.conclure.eventbuilder;
 
+import com.sun.istack.internal.NotNull;
 import me.conclure.eventbuilder.implementation.EventBuilderFactory;
 import me.conclure.eventbuilder.interfaces.EventBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.IllegalPluginAccessException;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.RegisteredListener;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
 
 public final class EventBuilders {
 
@@ -29,7 +17,16 @@ public final class EventBuilders {
         }
     }
 
-    public static <T extends Event> EventBuilder<T> create(Class<T> eventType) {
+    /**
+     * Creates a new {@link EventBuilder} from the {@param eventType}.
+     *
+     * @param eventType event class
+     * @param <T> event type
+     *
+     * @return {@link EventBuilder}
+     */
+    @NotNull
+    public static <T extends Event> EventBuilder<T> create(@NotNull Class<T> eventType) {
         return FACTORY.create(eventType);
     }
 

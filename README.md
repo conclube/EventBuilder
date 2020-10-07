@@ -97,7 +97,7 @@ eventBuilder.unregisterIf(Event::isAsynchronous);
 
 <br>
 
-You can also utilize a `EventBuilder<T extend Event>#executeIf(Predicate<T>,Consumer<T>)`.
+You can also utilize `EventBuilder<T extend Event>#executeIf(Predicate<T>,Consumer<T>)`.
 The consumer will only run if the predicate is true. The predicate won't apply to any other actions else than the consumer declared after it 
 albeit filters above it will still apply.
 

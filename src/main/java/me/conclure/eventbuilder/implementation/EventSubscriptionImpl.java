@@ -1,7 +1,5 @@
 package me.conclure.eventbuilder.implementation;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import me.conclure.eventbuilder.interfaces.EventSubscription;
 import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;

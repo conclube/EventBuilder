@@ -2,7 +2,6 @@ package me.conclure.eventbuilder.implementation;
 
 import me.conclure.eventbuilder.interfaces.EventBuilder;
 import org.bukkit.event.Event;
-import org.bukkit.event.EventPriority;
 
 import java.util.Objects;
 
