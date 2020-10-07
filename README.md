@@ -24,6 +24,8 @@ To assign an action to the builder, simply call `EventBuilder<T extends Event>#e
 eventBuilder.execute(event -> event.setJoinMessage("Someone joined."));
 ```
 
+<br>
+
 Then we can get the an `EventHandler<T extends Event>` by calling `EventBuilder<T extends Event>#build()` that won't allow any modifications to it's actions.
 You may now set the event priority by `EventHandler<T extends Event>#eventPriority(EventPriority)` 
 and if handler should ignore cancelled by `EventHandler<T extends Event>#ignoreCancelled(boolean)`.
@@ -34,12 +36,16 @@ EventHandler<PlayerJoinEvent> eventHandler = eventBuilder.build()
   .eventPriority(EventPriority.MONITOR);
 ```
 
+<br>
+
 You can then register the event handler by calling `EventHandler<T extends Event>#register(Plugin)` which will give you an `EventSubscription<T extends Event>`.
 Once you have gotten the subscription you won't be able to modify anything. The plugin instance should be your own.
 
 ```java
 EventSubscription<PlayerJoinEvent> eventSubscription = eventHandler.register(myPluginInstance);
 ```
+
+<br>
 
 If you prefer, you may also chain all the methods as a builder pattern.
 
@@ -78,6 +84,8 @@ EventBuilder<PlayerJoinEvent> eventBuilder = EventBuilders.create(PlayerJoinEven
   .filter(event -> !event.isAsynchronous())
   .execute(event -> event.setJoinMessage("Someone joined.")); //Will only run if the event isn't async
 ```
+
+<br>
 
 There is also `EventBuilder<T extend Event>#unregisterIf(Predicate<T>)` which instead of filtering will unregister the event subscription if the predicate is true.
 
