@@ -4,9 +4,15 @@ Functional event listener builder for bukkit events.
 ## Setup
 To use this, you will have to shade it into your jar.
 
-```
-http://repo.bristermitten.me/
-me.conclure:event-builder:1.0.0
+```gradle
+repositories {
+  mavenCentral()
+  maven {url 'http://repo.bristermitten.me/repository/maven-releases/'}
+}
+
+dependencies {
+  implementation 'me.conclure:event-builder:1.0.0'
+}
 ```
 
 ## Usage
