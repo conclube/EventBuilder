@@ -50,7 +50,10 @@ EventSubscription<PlayerJoinEvent> eventSubscription = EventBuilders.create(Play
   .register(myPluginInstance);
 ```
 
-It's recommended to unregister the subscription in your main `JavaPlugin#onDisable()`
+**NOTE**: You can skip calling `#build()` and instead call `#register(Plugin)` directly, 
+that will set ignoreCancelled to false and eventPriority to NORMAL.
+
+It's recommended to unregister the subscription in your main upon disabling `JavaPlugin#onDisable()`.
 
 ```java
 
@@ -60,6 +63,10 @@ public void onDisable() {
 }
 
 ```
+
+### Advanced
+
+
 
 ## Contributions
 This project is open for any pull requests that has reasonable changes. 
