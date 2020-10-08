@@ -7,7 +7,6 @@ import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
