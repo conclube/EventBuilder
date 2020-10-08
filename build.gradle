@@ -46,7 +46,7 @@ publishing {
                 username project.hasProperty('mavenUser') ? mavenUser : System.getenv('MAVEN_USER')
                 password project.hasProperty('mavenPassword') ? mavenPassword : System.getenv('MAVEN_PASSWORD')
             }
-        }''
+        }
     }
     publications {
         mavenJava(MavenPublication) {
