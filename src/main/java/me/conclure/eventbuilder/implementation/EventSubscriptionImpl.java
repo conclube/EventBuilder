@@ -4,7 +4,11 @@ import me.conclure.eventbuilder.interfaces.EventSubscription;
 import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.Bukkit;
-import org.bukkit.event.*;
+import org.bukkit.event.Event;
+import org.bukkit.event.EventException;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 
@@ -126,9 +130,9 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
                 } else if (o instanceof PredicateConsumer.Filter) {
                     PredicateConsumer.Filter<T> filter = (PredicateConsumer.Filter<T>) o;
                     if (!filter.getPredicate().test(eventCasted)) {
+                        filter.getConsumer().accept(eventCasted);
                         break;
                     }
-                    filter.getConsumer().accept(eventCasted);
                 } else if (o instanceof Predicate && !((Predicate<T>) o).test(eventCasted)) {
                     break;
                 } else if (o instanceof Consumer) {
