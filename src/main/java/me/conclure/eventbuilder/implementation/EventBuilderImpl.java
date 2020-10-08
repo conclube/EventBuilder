@@ -35,8 +35,12 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
     }
 
     @Override
-    public @NotNull EventBuilder<T> filter(@NotNull Predicate<T> predicate,@NotNull Consumer<T> elseConsumer) {
-        return null;
+    public EventBuilder<T> filter(Predicate<T> predicate,
+                                  Consumer<T> consumer) {
+        Objects.requireNonNull(predicate,"predicate");
+        Objects.requireNonNull(consumer,"consumer");
+        actionList.add(new PredicateConsumer.Filter<>(predicate,consumer));
+        return this;
     }
 
     @Override
@@ -66,8 +70,14 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
     }
 
     @Override
-    public @NotNull EventBuilder<T> executeIfElse(@NotNull Predicate<T> predicate,@NotNull Consumer<T> ifConsumer,@NotNull Consumer<T> elseConsumer) {
-        return null;
+    public EventBuilder<T> executeIfElse(Predicate<T> predicate,
+                                         Consumer<T> ifConsumer,
+                                         Consumer<T> elseConsumer) {
+        Objects.requireNonNull(predicate, "predicate");
+        Objects.requireNonNull(ifConsumer, "ifConsumer");
+        Objects.requireNonNull(elseConsumer, "elseConsumer");
+        actionList.add(new PredicateConsumer.IfElse<>(predicate,ifConsumer,elseConsumer));
+        return this;
     }
 
     @Override

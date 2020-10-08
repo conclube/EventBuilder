@@ -33,16 +33,16 @@ public interface EventBuilder<T extends Event> {
      * <br>
      * When the {@link Predicate#test(Object)} returns {@code true}
      * any code under it will be executed, whereas if would return
-     * {@code false} would stop any further code execution and the
-     * code in
+     * {@code false} would stop any further code execution and
+     * {@link Consumer#accept(Object)} will run as an else code.
      *
-     * @param predicate    filter
-     * @param elseConsumer
+     * @param predicate filter
+     * @param consumer action if false
      * @return same instance
      */
     @NotNull
     EventBuilder<T> filter(@NotNull Predicate<T> predicate,
-                           @NotNull Consumer<T> elseConsumer);
+                           @NotNull Consumer<T> consumer);
 
     /**
      * Adds an action to the builder.
@@ -87,6 +87,19 @@ public interface EventBuilder<T extends Event> {
     EventBuilder<T> executeIf(@NotNull Predicate<T> predicate,
                               @NotNull Consumer<T> consumer);
 
+    /**
+     * Adds an action to the builder.
+     * <br>
+     * First {@link Consumer} will be accepted if
+     * {@link Predicate#test(Object)} returns {@code true}. Else the
+     * second {@link Consumer} will be accepted. Any filters above will
+     * still apply.
+     *
+     * @param predicate predicate
+     * @param ifConsumer action if true
+     * @param elseConsumer action if false
+     * @return same instance
+     */
     @NotNull
     EventBuilder<T> executeIfElse(@NotNull Predicate<T> predicate,
                                   @NotNull Consumer<T> ifConsumer,
