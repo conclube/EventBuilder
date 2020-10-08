@@ -1,8 +1,8 @@
 package me.conclure.eventbuilder.interfaces;
 
-import org.jetbrains.annotations.NotNull;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -29,10 +29,25 @@ public interface EventBuilder<T extends Event> {
     EventBuilder<T> filter(@NotNull Predicate<T> predicate);
 
     /**
+     * Applies a filter to the builder.
+     * <br>
+     * When the {@link Predicate#test(Object)} returns {@code true}
+     * any code under it will be executed, whereas if would return
+     * {@code false} would stop any further code execution and
+     * {@link Consumer#accept(Object)} will run as an else code.
+     *
+     * @param predicate filter
+     * @param consumer action if false
+     * @return same instance
+     */
+    @NotNull
+    EventBuilder<T> filter(@NotNull Predicate<T> predicate,
+                           @NotNull Consumer<T> consumer);
+
+    /**
      * Adds an action to the builder.
      *
      * @param consumer action
-     *
      * @return same instance
      */
     @NotNull
@@ -73,13 +88,30 @@ public interface EventBuilder<T extends Event> {
                               @NotNull Consumer<T> consumer);
 
     /**
+     * Adds an action to the builder.
+     * <br>
+     * First {@link Consumer} will be accepted if
+     * {@link Predicate#test(Object)} returns {@code true}. Else the
+     * second {@link Consumer} will be accepted. Any filters above will
+     * still apply.
+     *
+     * @param predicate predicate
+     * @param ifConsumer action if true
+     * @param elseConsumer action if false
+     * @return same instance
+     */
+    @NotNull
+    EventBuilder<T> executeIfElse(@NotNull Predicate<T> predicate,
+                                  @NotNull Consumer<T> ifConsumer,
+                                  @NotNull Consumer<T> elseConsumer);
+
+    /**
      * Adds an action for any exception to the builder.
      * <br>
      * The {@link Consumer#accept(Object)} will be called regardless
      * any filter if an {@link Exception} is caught.
      *
      * @param consumer error action
-     *
      * @return same instance
      */
     @NotNull

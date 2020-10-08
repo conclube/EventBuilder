@@ -4,14 +4,13 @@ plugins {
 }
 
 group 'me.conclure'
-version '1.0.0'
+version '1.1.0'
 
 targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenLocal()
     mavenCentral()
-    maven {url 'http://repo.bristermitten.me/repository/maven-releases/'}
 }
 
 dependencies {
@@ -47,7 +46,7 @@ publishing {
                 username project.hasProperty('mavenUser') ? mavenUser : System.getenv('MAVEN_USER')
                 password project.hasProperty('mavenPassword') ? mavenPassword : System.getenv('MAVEN_PASSWORD')
             }
-        }
+        }''
     }
     publications {
         mavenJava(MavenPublication) {

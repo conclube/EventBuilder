@@ -4,11 +4,7 @@ import me.conclure.eventbuilder.interfaces.EventSubscription;
 import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventException;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 
@@ -78,7 +74,7 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
 
     @Override
     public boolean unregister() {
-        if (!isRegistered.get()) {
+        if (!isRegistered.getAndSet(false)) {
             return false;
         }
         HANDLER_LIST_CACHE.apply(eventType,this).unregister(this);
@@ -87,7 +83,7 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
 
     @Override
     public boolean register() {
-        if (isRegistered.get()) {
+        if (isRegistered.getAndSet(true)) {
             return false;
         }
         register0();
@@ -118,16 +114,26 @@ class EventSubscriptionImpl<T extends Event> implements EventSubscription<T>, Ev
                     continue;
                 }
 
-                if (o instanceof PredicateConsumer && ((PredicateConsumer<T>)o).getPredicate().test(eventCasted)) {
-                    ((PredicateConsumer<T>)o).getConsumer().accept(eventCasted);
-                }
-                else if (o instanceof Predicate && !((Predicate<T>)o).test(eventCasted)) {
+                if (o instanceof PredicateConsumer && ((PredicateConsumer<T>) o).getPredicate().test(eventCasted)) {
+                    ((PredicateConsumer<T>) o).getConsumer().accept(eventCasted);
+                } else if (o instanceof PredicateConsumer.IfElse) {
+                    PredicateConsumer.IfElse<T> ifElse = (PredicateConsumer.IfElse<T>) o;
+                    if (ifElse.getPredicate().test(eventCasted)) {
+                        ifElse.getIfConsumer().accept(eventCasted);
+                    } else {
+                        ifElse.getElseConsumer().accept(eventCasted);
+                    }
+                } else if (o instanceof PredicateConsumer.Filter) {
+                    PredicateConsumer.Filter<T> filter = (PredicateConsumer.Filter<T>) o;
+                    if (!filter.getPredicate().test(eventCasted)) {
+                        break;
+                    }
+                    filter.getConsumer().accept(eventCasted);
+                } else if (o instanceof Predicate && !((Predicate<T>) o).test(eventCasted)) {
                     break;
-                }
-                else if (o instanceof Consumer) {
-                    ((Consumer<T>)o).accept(eventCasted);
-                }
-                else if (o instanceof UnregisterPredicate && ((UnregisterPredicate<T>)o).getPredicate().test(eventCasted)) {
+                } else if (o instanceof Consumer) {
+                    ((Consumer<T>) o).accept(eventCasted);
+                } else if (o instanceof UnregisterPredicate && ((UnregisterPredicate<T>) o).getPredicate().test(eventCasted)) {
                     unregister();
                 }
             }

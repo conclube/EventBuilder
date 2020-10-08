@@ -24,7 +24,7 @@ class EventHandlerImpl<T extends Event> implements EventHandler<T> {
 
     EventHandlerImpl(EventBuilderImpl<T> builder) {
         if (builder.actionList.isEmpty()) {
-            throw new HandlerException("No handlers");
+            throw new HandlerException("No actions defined");
         }
         actionList = ImmutableList.copyOf(builder.actionList);
         exceptionList = ImmutableList.copyOf(builder.exceptionList);

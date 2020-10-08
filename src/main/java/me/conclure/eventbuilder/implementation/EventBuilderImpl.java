@@ -7,6 +7,7 @@ import me.conclure.eventbuilder.internal.PredicateConsumer;
 import me.conclure.eventbuilder.internal.UnregisterPredicate;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,23 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
 
     @Override
     public EventBuilder<T> filter(Predicate<T> predicate) {
-        Objects.requireNonNull(predicate, "predicate");
+        Objects.requireNonNull(predicate,"predicate");
         actionList.add(predicate);
         return this;
     }
 
     @Override
+    public EventBuilder<T> filter(Predicate<T> predicate,
+                                  Consumer<T> consumer) {
+        Objects.requireNonNull(predicate,"predicate");
+        Objects.requireNonNull(consumer,"consumer");
+        actionList.add(new PredicateConsumer.Filter<>(predicate,consumer));
+        return this;
+    }
+
+    @Override
     public EventBuilder<T> execute(Consumer<T> consumer) {
-        Objects.requireNonNull(consumer, "consumer");
+        Objects.requireNonNull(consumer,"consumer");
         actionList.add(consumer);
         return this;
     }
@@ -53,15 +63,26 @@ class EventBuilderImpl<T extends Event> implements EventBuilder<T> {
     @Override
     public EventBuilder<T> executeIf(Predicate<T> predicate,
                                      Consumer<T> consumer) {
-        Objects.requireNonNull(predicate, "predicate");
-        Objects.requireNonNull(consumer, "consumer");
+        Objects.requireNonNull(predicate,"predicate");
+        Objects.requireNonNull(consumer,"consumer");
         actionList.add(new PredicateConsumer<>(predicate,consumer,false));
         return this;
     }
 
     @Override
+    public EventBuilder<T> executeIfElse(Predicate<T> predicate,
+                                         Consumer<T> ifConsumer,
+                                         Consumer<T> elseConsumer) {
+        Objects.requireNonNull(predicate, "predicate");
+        Objects.requireNonNull(ifConsumer, "ifConsumer");
+        Objects.requireNonNull(elseConsumer, "elseConsumer");
+        actionList.add(new PredicateConsumer.IfElse<>(predicate,ifConsumer,elseConsumer));
+        return this;
+    }
+
+    @Override
     public EventBuilder<T> onError(Consumer<Exception> exceptionConsumer) {
-        Objects.requireNonNull(exceptionConsumer, "consumer");
+        Objects.requireNonNull(exceptionConsumer,"consumer");
         exceptionList.add(exceptionConsumer);
         return this;
     }
